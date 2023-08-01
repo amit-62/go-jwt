@@ -1,13 +1,19 @@
 package main
 
 import (
-	routes "go-jwt/routes"
 	"os"
+	"log"
 
+	routes "github.com/amit/go-jwt/routes"
+	"github.com/joho/godotenv"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("error loading env file")
+	}
 	port := os.Getenv("PORT")
 
 	if port == "" {
@@ -28,6 +34,6 @@ func main() {
 		c.JSON(200, gin.H{"success": "access granted for api-2"})
 	})
 
-	router.run(":" + port)
+	router.Run(":" + port)
 
 }

@@ -5,12 +5,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func checkUserType(c *gin.Context, role string) (err error) {
+func CheckUserType(c *gin.Context, role string) (err error) {
 	userType := c.GetString("user_type")
 	err = nil
 
 	if userType != role {
-		err = error.New("unauthorised to access this resources")
+		err = errors.New("unauthorised to access this resources")
 		return err
 	} 
 
@@ -18,16 +18,16 @@ func checkUserType(c *gin.Context, role string) (err error) {
 
 }
 
-func MatchUserTypeToUid(c *gin.Context, userId string) (err error{
+func MatchUserTypeToUid(c *gin.Context, userId string) (err error){
 	userType := c.GetString("user_type")
 	uid := c.GetString("user_id")
 	err = nil
 
 	if userType == "USER" && userId != uid {
-		err = error.New("unauthorised to access this resources")
+		err = errors.New("unauthorised to access this resources")
 		return err
 	} 
 
-	err = checkUserType(c, userType)
+	err = CheckUserType(c, userType)
 	return err
 }
